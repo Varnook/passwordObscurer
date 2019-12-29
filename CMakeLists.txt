@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.10)
+project(passwordObscurer)
+
+set(CMAKE_CXX_STANDARD 11)
+set(SOURCE_FILES main.cpp dialogo.cpp interface.glade)
+
+set(Python_ADDITIONAL_VERSIONS 3)
+find_package(PythonLibs REQUIRED) 
+
+FIND_PACKAGE(PkgConfig REQUIRED)
+PKG_CHECK_MODULES(GTK REQUIRED gtk+-3.0)
+ADD_DEFINITIONS(${GTK_CFLAGS_OTHER})
+
+INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS} ${GTK_INCLUDE_DIRS})
+LINK_DIRECTORIES(${PYTHON_LIBRARIES} ${GTK_LIBRARY_DIRS})
+
+#set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_executable(passwordObscurer ${SOURCE_FILES})
+
+target_link_libraries(passwordObscurer ${PYTHON_LIBRARIES} ${GTK_LIBRARIES})
